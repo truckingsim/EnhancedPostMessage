@@ -1,11 +1,31 @@
 (function (window, undefined) {
-    var PluginName = {
-        _defaults: {},
+    var initialized = false;
+    var PrivatePluginName = {
+        _defaults: { stringify: false },
         _options: {},
         _events: {},
         _listeners: {},
         _sources: {},
 
+        initialize: function(options){
+            if(!initialized){
+                // We need some things before the plugin can be truly initialized
+                if(!options.sources){
+                    this.log('Must have at least one source available', true);
+                }
+
+                for(var source in options.sources){
+                    if(options.sources.hasOwnProperty(source)){
+                        this._addSource(source, options.sources[source]);
+                    }
+                }
+
+                this._options = extend({}, this._defaults, options);
+                initialized = true;
+            } else {
+                // @todo: maybe extend, might just ignore if an object is passed after initialization
+            }
+        },
         _addEvent: function (key, value) {
             this._events[key] = value;
         },
@@ -23,9 +43,9 @@
         }
     };
 
-    var log = function (message, error) {
+    PrivatePluginName.log = function (message, error) {
         message = message instanceof Array ? message : [message];
-        window.console && this.ajaxOptions.debug && (error ? console.error : console.log).apply(console, message);
+        window.console && this._options.debug && (error ? console.error : console.log).apply(console, message);
     };
 
     var extend = function (obj) {
@@ -40,15 +60,13 @@
         }
     };
 
-    var PublicPluginName = function (options) {
+    window.PluginName = function (options) {
         if (arguments.length > 1) {
-            // Attempting to set an option
-        } else if (arguments.length == 1) {
 
+        } else if (arguments.length == 1) {
+            PrivatePluginName.initialize(options);
         } else {
 
         }
     };
-
-    window.PluginName = PublicPluginName;
 })(window);
