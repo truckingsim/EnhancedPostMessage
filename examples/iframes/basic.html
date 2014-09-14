@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+    <body>
+    test
+        <script src="../../dist/EnhancedPostMessage.js"></script>
+        <script>
+            PluginName({
+                sources: {
+                    test: document.getElementsByTagName('iframe')[0]
+                },
+                listeners: {
+                    test: function(data){
+                        console.log(data);
+                    }
+                },
+                events: {
+                    test: true
+                },
+                debug: true
+            });
+        </script>
+    </body>
+</html>
