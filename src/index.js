@@ -31,6 +31,15 @@
                     }
                 }
 
+                // Check for any listeners and add them
+                if(options.listeners && keys(options.listeners).length){
+                    for(var l in options.listeners){
+                        if(options.listeners.hasOwnProperty(l)){
+                            this._addListener(l, options.listeners[l]);
+                        }
+                    }
+                }
+
                 this._options = extend({}, this._defaults, options);
 
 
@@ -45,9 +54,15 @@
             }
         },
         triggerEvent: function(sourceName, eventName, data){
-            var source = this._sources[sourceName];
-            var e = this._events[eventName];
-            if(!source){
+            var sourceWindow, e, objToSend = {};
+            if(sourceName === 'parent'){
+                sourceWindow = window.parent;
+            } else {
+                sourceWindow = this._sources[sourceName].contentWindow;
+            }
+
+            e = this._events[eventName];
+            if(!sourceWindow){
                 this.log('No source by that name');
                 return false;
             }
@@ -68,12 +83,12 @@
                 }
             }
 
-            var objToSend = {
+            objToSend = {
                 eventName: eventName,
                 data: data
             };
 
-            source.contentWindow.postMessage(this._options.stringify ? JSON.stringify(objToSend) : objToSend, '*');
+            sourceWindow.postMessage(this._options.stringify ? JSON.stringify(objToSend) : objToSend, '*');
         },
         _addEvent: function (key, value) {
             this._events[key] = value;
@@ -91,7 +106,15 @@
             this._options[name] = value;
         },
         _handleEventListener: function(e){
-            this.log(e);
+            // If the data was stringified we need to parse it, this option should match on both sides.
+            if(this._options.stringify && typeof e.data === 'string'){
+                e.data = JSON.parse(e.data);
+            }
+
+            // If there is a listener for this event name, call it and pass the data
+            if(this._listeners[e.data.eventName]){
+                this._listeners[e.data.eventName](e.data.data);
+            }
         }
     };
 
@@ -119,13 +142,13 @@
     var keys = function(obj){
         if(Object.keys) return Object.keys(obj);
         var keys = [];
-        for(key in obj){
+        for(var key in obj){
             if(obj.hasOwnProperty(key)){
-                keys.push(key)
+                keys.push(key);
             }
         }
         return keys;
-    }
+    };
 
     window.PluginName = function (options) {
         if (arguments.length > 1) {

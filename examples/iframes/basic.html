@@ -9,19 +9,21 @@
         <script src="../../dist/EnhancedPostMessage.js"></script>
         <script>
             PluginName({
-                sources: {
-                    test: document.getElementsByTagName('iframe')[0]
-                },
                 listeners: {
                     test: function(data){
                         console.log(data);
                     }
                 },
                 events: {
-                    test: true
+                    test: function(){
+                        return {test: 'test'};
+                    }
                 },
                 debug: true
             });
+            setTimeout(function(){
+                PluginName('trigger', 'parent', 'test');
+            }, 1000);
         </script>
     </body>
 </html>
