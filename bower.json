@@ -1,0 +1,27 @@
+{
+  "name": "EnhancedPostMessage",
+  "version": "0.1.0",
+  "homepage": "https://truckingsim.github.io/EnhancedPostMessage",
+  "authors": [
+    "Adam Heim <jefffan24@gmail.com>"
+  ],
+  "description": "A better postMessage",
+  "main": "index.html",
+  "keywords": [
+    "postMessage"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1",
+    "underscore": "~1.7.0"
+  }
+}
