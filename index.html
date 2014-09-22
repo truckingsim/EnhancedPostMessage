@@ -5,11 +5,41 @@
         <title>Document</title>
         <link href="static/css/main.css" rel="stylesheet" />
     </head>
-    <body>
-        <iframe src="iframes/basic.html"></iframe>
+    <body data-spy="scroll" data-target="nav">
+        <nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">EnhancedPostMessage</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-right navbar-collapse" id="main-nav">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#top">Home</a>
+                        </li>
+                        <li>
+                            <a href="#container">Link</a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <div id="top"></div>
+        <div class="" style="height: 1000px;"></div>
+        <div class="container">
+            <iframe src="iframes/basic.html"></iframe>
+        </div>
+
         <script src="dist/EnhancedPostMessage.js"></script>
-
-
         <script src="static/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
