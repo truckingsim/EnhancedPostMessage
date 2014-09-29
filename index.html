@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Document</title>
         <link href="static/css/main.css" rel="stylesheet" />
+        <link href="static/css/prism.css" rel="stylesheet" />
     </head>
     <body data-spy="scroll" data-target="nav">
         <nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
@@ -34,14 +35,42 @@
         </nav>
 
         <div id="top"></div>
-        <div class="" style="height: 1000px;"></div>
         <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Options</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9 main">
+<pre><code class="language-javascript"></code></pre>
+                </div>
+                <div class="col-xs-3 side-menu"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>One way communication</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9 main">
+                    test
+                </div>
+                <div class="col-xs-3 side-menu">
+                   gtest
+                </div>
+
+
+            </div>
             <iframe src="iframes/basic.html"></iframe>
         </div>
 
         <script src="dist/EnhancedPostMessage.js"></script>
         <script src="static/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="static/js/prism.js"></script>
         <script>
             PluginName({
                 sources: {
