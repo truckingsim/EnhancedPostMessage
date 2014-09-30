@@ -20,6 +20,7 @@ An easy way to do 1 and 2 way communication across multiple frames/windows.  Sup
 >     source1: document.getElementById('test'),
 >     // If using jQuery you can accomplish the same way using the following
 >     source2: $('#test')[0]
+>   }
 > }
 > ```
 >
