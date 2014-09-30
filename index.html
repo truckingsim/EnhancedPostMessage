@@ -1,94 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Document</title>
-        <link href="static/css/main.css" rel="stylesheet" />
-        <link href="static/css/prism.css" rel="stylesheet" />
-    </head>
-    <body data-spy="scroll" data-target="nav">
-        <nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">EnhancedPostMessage</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-right navbar-collapse" id="main-nav">
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="#top">Home</a>
-                        </li>
-                        <li>
-                            <a href="#container">Link</a>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-        <div id="top"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Options</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-9 main">
-<pre><code class="language-javascript"></code></pre>
-                </div>
-                <div class="col-xs-3 side-menu"></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>One way communication</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-9 main">
-                    test
-                </div>
-                <div class="col-xs-3 side-menu">
-                   gtest
-                </div>
-
-
-            </div>
-            <iframe src="iframes/basic.html"></iframe>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="static/css/main.css" rel="stylesheet"/>
+    <link href="static/css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+</head>
+<body data-spy="scroll" data-target="nav">
+<nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">EnhancedPostMessage</a>
         </div>
 
-        <script src="dist/EnhancedPostMessage.js"></script>
-        <script src="static/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="static/js/prism.js"></script>
-        <script>
-            PluginName({
-                sources: {
-                    test: document.getElementsByTagName('iframe')[0]
-                },
-                listeners: {
-                    test: function(data){
-                        console.log(data);
-                    }
-                },
-                events: {
-                    test: {test: 'test'}
-                },
-                debug: true
-            });
-            setTimeout(function(){
-                PluginName('trigger', 'test', 'test');
-            }, 1000);
-        </script>
-    </body>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-right navbar-collapse" id="main-nav">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#top">Home</a>
+                </li>
+                <li>
+                    <a href="#container">Link</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<div id="top"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Options</h3>
+
+            <h2 id="enhancedpostmessage">EnhancedPostMessage</h2>
+
+            <p>An easy way to do 1 and 2 way communication across multiple frames/windows. Supports adding events
+                programatically, and triggering events at any time after being instantiated.</p>
+
+
+            <h3 id="options">options</h3>
+
+            <hr>
+
+
+            <h4 id="stringify">stringify</h4>
+
+            <blockquote>
+                <p><strong>Type:</strong> <code>Boolean</code> <br>
+                    <strong>Default:</strong> <code>false</code> <br>
+                    Only set to true if you wish to support IE9 and/or IE8. Every other browser can pass objects through
+                    postMessage.</p>
+            </blockquote>
+
+
+            <h4 id="sources">sources</h4>
+
+            <blockquote>
+                <p><strong>Type:</strong> <code>Object</code></p>
+
+                <p>List of sources where the value is a single dom element</p>
+
+<pre><code class="js">{
+    sources: {
+        source1: document.getElementById('test'),
+        // If using jQuery you can accomplish the same way using the following
+        source2: $('#test')[0]
+    }
+}</code></pre>
+                <p>A special internal reserved word of parent is used for sending an event back to the parent frame. Nosource can use this name.</p>
+            </blockquote>
+
+
+            <h4 id="events">events</h4>
+
+            <blockquote>
+                <p><strong>Type:</strong> <code>Object</code></p>
+
+                <p>The events to listen for in a <code>name: value</code> type of way</p>
+
+                <blockquote>
+                    <p><em>value</em> - <strong>Type:</strong> <code>Object|Function|True</code></p>
+
+                    <p>The value of an event can be an object that is passed to the listener, a function that is called
+                        with the data sent from the trigger and a object is returned, or <code>true</code> which means
+                        we just trigger the listener on the source with no data passed.</p>
+                </blockquote>
+<pre><code class="js">{
+    events: {
+        exTrue: true,
+        exFunc: function(data){
+            // do some manipulation to data
+            return newData;
+        },
+        exObj: {
+            test: 'data'
+        }
+    }
+}</code></pre>
+            </blockquote>
+
+
+            <h4 id="listeners">listeners</h4>
+
+            <blockquote>
+                <p><strong>Type:</strong> <code>Object</code></p>
+
+                <p>The callbacks to be called on when an event is triggered. </p>
+
+<pre><code class="js">{
+    listeners: {
+        listener1: function(data){
+            // If any data is passed the first param will contain that data.
+            //    Otherwise the first param will be `undefined`
+
+            $('#html').html(data);
+            // Anything else...
+        }
+    }
+}</code></pre>
+            </blockquote>
+
+            <p>There are no required options, and any option can be added at a later time after the plugin has been
+                instantiated through one of the following methods:</p>
+
+
+            <h3 id="methods">methods</h3>
+
+            <hr>
+
+
+            <h4 id="addevent">addEvent</h4>
+
+
+            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage(<span class="hljs-string">'addEvent'</span>, <span class="hljs-string">'eventName'</span>, <span class="hljs-string">'Object|Function|True'</span>);</code></pre>
+
+
+            <h4 id="addlistener">addListener</h4>
+
+
+
+<pre class="prettyprint"><code class="language-js hljs ">var FunctionToBeCalled = function(data){};
+EnhancedPostMessage(<span class="hljs-string">'addListener'</span>, <span class="hljs-string">'listenerName'</span>, FunctionToBeCalled);</code></pre>
+
+
+            <h4 id="addsource">addSource</h4>
+
+
+            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage(<span class="hljs-string">'addSource'</span>,
+                <span class="hljs-string">'sourceName'</span>, document.getElementById(<span class="hljs-string">'sourceId'</span>);</code></pre>
+
+            <hr>
+
+
+            <h3 id="trigger">trigger</h3>
+
+            <p><code>trigger</code> has 3 params:</p>
+
+            <p>param 1:</p>
+
+            <blockquote>
+                <p><strong>Required</strong></p>
+
+                <p><strong>Type:</strong> <code>String</code></p>
+
+                <p>The name of the event you wish to be triggered</p>
+            </blockquote>
+
+            <p>param 2:</p>
+
+            <blockquote>
+                <p><strong>Required</strong></p>
+
+                <p><strong>Type:</strong> <code>String</code></p>
+
+                <p>The name of the source you wish the event to be triggered on</p>
+            </blockquote>
+
+            <p>param 3:</p>
+
+            <blockquote>
+                <p><strong>Optional</strong></p>
+
+                <p><strong>Type:</strong> <code>String|Object</code></p>
+
+                <p>Any data you wish to send to the event, if the event is a function. If the event is an object, the
+                    eventâ€™s object will override the data passed. If the event is a bool <code>true</code> then the
+                    data will be passed as is to the listener.</p>
+            </blockquote>
+
+            <p><strong>Example:</strong></p>
+
+
+            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage.trigger(<span
+                    class="hljs-string">'exEvent1'</span>, <span class="hljs-string">'source1'</span>, {data: {to: {be:
+                <span class="hljs-string">'passed'</span>}}});</code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9 main">
+        </div>
+        <div class="col-xs-3 side-menu"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>One way communication</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9 main">
+            test
+        </div>
+        <div class="col-xs-3 side-menu">
+            gtest
+        </div>
+
+
+    </div>
+    <iframe src="iframes/basic.html"></iframe>
+</div>
+
+<script src="dist/EnhancedPostMessage.js"></script>
+<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    PluginName({
+        sources: {
+            test: document.getElementsByTagName('iframe')[0]
+        },
+        listeners: {
+            test: function (data) {
+                console.log(data);
+            }
+        },
+        events: {
+            test: {test: 'test'}
+        },
+        debug: true
+    });
+    setTimeout(function () {
+        PluginName('trigger', 'test', 'test');
+    }, 1000);
+</script>
+</body>
 </html>
