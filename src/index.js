@@ -74,7 +74,7 @@
 
             if(e !== true){
                 if(typeof e === 'function'){
-                    data = e();
+                    data = e(data);
                 } else if(typeof e === 'object'){
                     data = e;
                 } else {
@@ -150,7 +150,7 @@
         return keys;
     };
 
-    window.PluginName = function (options) {
+    var PublicInstance = function (options) {
         if (arguments.length > 1) {
             // Handle event triggers
             if(arguments[0] === 'trigger' && arguments.length >= 3){
@@ -162,4 +162,14 @@
 
         }
     };
+
+    PublicInstance.prototype.trigger = function(){
+        if(arguments.length >= 2){
+            PrivatePluginName.triggerEvent(arguments[0], arguments[1], arguments[2]);
+        } else {
+            PrivatePluginName.log('Invalid trigger, need both an event name and a source name', true);
+        }
+    };
+
+    window.PluginName = new PublicInstance();
 })(window);
