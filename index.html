@@ -41,8 +41,6 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h3>Options</h3>
-
             <h2 id="enhancedpostmessage">EnhancedPostMessage</h2>
 
             <p>An easy way to do 1 and 2 way communication across multiple frames/windows. Supports adding events
@@ -143,22 +141,21 @@
             <h4 id="addevent">addEvent</h4>
 
 
-            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage(<span class="hljs-string">'addEvent'</span>, <span class="hljs-string">'eventName'</span>, <span class="hljs-string">'Object|Function|True'</span>);</code></pre>
+            <pre><code class="js">EnhancedPostMessage('addEvent', 'eventName', 'Object|Function|True');</code></pre>
 
 
             <h4 id="addlistener">addListener</h4>
 
 
 
-<pre class="prettyprint"><code class="language-js hljs ">var FunctionToBeCalled = function(data){};
-EnhancedPostMessage(<span class="hljs-string">'addListener'</span>, <span class="hljs-string">'listenerName'</span>, FunctionToBeCalled);</code></pre>
+<pre><code class="js">var FunctionToBeCalled = function(data){};
+EnhancedPostMessage('addListener', 'listenerName', FunctionToBeCalled);</code></pre>
 
 
             <h4 id="addsource">addSource</h4>
 
 
-            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage(<span class="hljs-string">'addSource'</span>,
-                <span class="hljs-string">'sourceName'</span>, document.getElementById(<span class="hljs-string">'sourceId'</span>);</code></pre>
+            <pre><code class="js">EnhancedPostMessage('addSource', 'sourceName', document.getElementById('sourceId');</code></pre>
 
             <hr>
 
@@ -202,9 +199,7 @@ EnhancedPostMessage(<span class="hljs-string">'addListener'</span>, <span class=
             <p><strong>Example:</strong></p>
 
 
-            <pre class="prettyprint"><code class="language-js hljs ">EnhancedPostMessage.trigger(<span
-                    class="hljs-string">'exEvent1'</span>, <span class="hljs-string">'source1'</span>, {data: {to: {be:
-                <span class="hljs-string">'passed'</span>}}});</code></pre>
+            <pre><code class="js">EnhancedPostMessage.trigger('exEvent1', 'source1', {data: {to: {be: 'passed'}}});</code></pre>
         </div>
     </div>
     <div class="row">
