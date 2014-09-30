@@ -89,30 +89,30 @@ EnhancedPostMessage('addSource', 'sourceName', document.getElementById('sourceId
 ```
 -----
 ###trigger
-`trigger` has 3 params:
+`trigger(event, source, data)`:
 
-param 1:
-> __Required__
+>* event:
+>> __Required__
+>>
+>> __Type:__ `String`
+>>
+>> The name of the event you wish to be triggered
 >
-> __Type:__ `String`
+>* source:
+>> __Required__
+>>
+>> __Type:__ `String`
+>>
+>> The name of the source you wish the event to be triggered on
 >
-> The name of the event you wish to be triggered
+>* data:
+>> __Optional__
+>>
+>> __Type:__ `String|Object`
+>> 
+>> Any data you wish to send to the event, if the event is a function.  If the event is an object, the event's object will override the data passed.  If the event is a bool `true` then the data will be passed as is to the listener.
 
-param 2:
-> __Required__
->
-> __Type:__ `String`
->
-> The name of the source you wish the event to be triggered on
-
-param 3:
-> __Optional__
->
-> __Type:__ `String|Object`
-> 
-> Any data you wish to send to the event, if the event is a function.  If the event is an object, the event's object will override the data passed.  If the event is a bool `true` then the data will be passed as is to the listener.
-
-**Example:**
-```js
+>**Example:**
+>```js
 EnhancedPostMessage.trigger('exEvent1', 'source1', {data: {to: {be: 'passed'}}});
 ```
