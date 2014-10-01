@@ -15,7 +15,7 @@ module.exports = function(grunt){
         },
         concat: {
             option: {
-                separator: ';',
+                separator: ';'
             },
             dist: {
                 src: ['src/index.js'],
