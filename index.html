@@ -355,6 +355,47 @@ iframeTwoWayInput.addEventListener('click', function(){
                     <hr/>
                 </div>
             </div>
+
+            <!-- MULTIPLE SOURCES -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Multiple Sources</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    The plugin works with multiple sources, listeners and events.  This page, works off of one instance of the plugin for all examples.
+                    <br>
+                    For full usage, view source this page for all the JS.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <pre><code class="js">EnhancedPostMessage({
+    sources: {
+        oneWay: document.getElementById('oneWayIframe'),
+        oneWayWithData: document.getElementById('oneWayWithDataIframe'),
+        twoWay: document.getElementById('twoWayIframe'),
+        twoWayWithData: document.getElementById('twoWayWithDataIframe')
+    },
+    listeners: {
+        twoWay: updateIframeClickedCount,
+        twoWayWithData: updateTwoWayWithDataInputValue
+    },
+    events: {
+        oneWay: true,
+        oneWayWithData: true,
+        twoWay: true,
+        twoWayWithData: true
+    },
+    stringify: true,
+    debug: true
+});</code></pre>
+                </div>
+            </div>
         </div>
 
         <script src="dist/EnhancedPostMessage.js"></script>
