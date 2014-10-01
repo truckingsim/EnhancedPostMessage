@@ -6166,3 +6166,10 @@ button.close {
 body {
   padding-top: 75px;
 }
+body.less-padding {
+  padding-top: 15px;
+}
+iframe {
+  width: 100%;
+  min-height: 250px;
+}
