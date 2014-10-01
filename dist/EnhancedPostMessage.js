@@ -171,5 +171,5 @@
         }
     };
 
-    window.PluginName = new PublicInstance();
+    window.EnhancedPostMessage = new PublicInstance();
 })(window);
