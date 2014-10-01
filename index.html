@@ -1,101 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EnhancedPostMessage</title>
-    <link href="static/css/main.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
-</head>
-<body data-spy="scroll" data-target="nav">
-<nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">EnhancedPostMessage</a>
+    <head>
+        <meta charset="UTF-8">
+        <title>EnhancedPostMessage</title>
+        <link href="static/css/main.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+    </head>
+    <body data-spy="scroll" data-target="nav">
+        <nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">EnhancedPostMessage</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-right navbar-collapse" id="main-nav">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#top">Home</a>
+                        </li>
+                        <li>
+                            <a href="#container">Link</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
+        <div id="top"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 id="enhancedpostmessage">EnhancedPostMessage</h1>
+
+                    <p>An easy way to do 1 and 2 way communication across multiple frames/windows. Supports adding events
+                        programatically, and triggering events at any time after being instantiated.</p>
+
+                    <hr>
+                    <h2 id="options">Options</h2>
+                    <p>You can view all options in the README: <a href="https://github.com/truckingsim/EnhancedPostMessage/blob/master/README.md" target="_blank">README.md</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr/>
+                </div>
+            </div>
+
+            <!-- ONE WAY COMMUNICATION -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>One way communication</h2>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Code</h3>
+                </div>
+            </div>
+            <blockquote>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>This page</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+    sources: {
+        oneWaySource: document.getElementbyId('oneWayIframe')
+    },
+    events: {
+        oneWayEvent: true
+    }
+});
+document.getElementById('oneWayButton').addEventListener('click', function(){
+    EnhancedPostMessage.trigger('oneWayEvent', 'oneWaySource');
+});</code></pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>The iframe</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+    listeners: {
+        oneWayEvent: function(){
+            clickCounter++;
+            document.getElementById('clickCounter').innerHTML = clickCounter.toString();
+        }
+    }
+});</code></pre>
+                    </div>
+                </div>
+            </blockquote>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Example</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-9">
+                    <iframe src="iframes/oneWay.html" id="oneWayIframe"></iframe>
+                </div>
+                <div class="col-xs-3">
+                    <button id="oneWayButton" class="btn btn-primary pull-right">Trigger one way communication</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr/>
+                </div>
+            </div>
+
+            <!-- ONE WAY COMMUNICATION WITH DATA -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>One way communication with data</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Code</h3>
+                </div>
+            </div>
+            <blockquote>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>This page</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+    sources: {
+        oneWayWithDataSource: document.getElementbyId('oneWayIframe')
+    },
+    events: {
+        oneWayWithDataEvent: true
+    }
+});
+
+var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+oneWayWithDataInput.addEventListener('keyup', function(){
+    EnhancedPostMessage.trigger('oneWayWithDataEvent', 'oneWayWithDataSource', oneWayWithDataInput.value);
+});</code></pre>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>The iframe</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+    listeners: {
+        oneWayWithDataEvent: function(text){
+            document.getElementById('typedText').innerHTML = text;
+        };
+    }
+});</code></pre>
+                    </div>
+                </div>
+            </blockquote>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Example</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-9">
+                    <iframe src="iframes/oneWayWithData.html" id="oneWayWithDataIframe"></iframe>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" id="oneWayWithDataInput" class="form-control">
+                </div>
+            </div>
+
+            <!-- TWO WAY COMMUNICATION -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Two way communication</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Code</h3>
+                </div>
+            </div>
+            <blockquote>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>This page</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+                            sources: {
+                            oneWayWithDataSource: document.getElementbyId('oneWayIframe')
+                            },
+                            events: {
+                            oneWayWithDataEvent: true
+                            }
+                            });
+
+                            var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+                            oneWayWithDataInput.addEventListener('keyup', function(){
+                            EnhancedPostMessage.trigger('oneWayWithDataEvent', 'oneWayWithDataSource', oneWayWithDataInput.value);
+                            });</code></pre>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>The iframe</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+                            listeners: {
+                            oneWayWithDataEvent: function(text){
+                            document.getElementById('typedText').innerHTML = text;
+                            };
+                            }
+                            });</code></pre>
+                    </div>
+                </div>
+            </blockquote>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Example</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <iframe src="iframes/twoWay.html" id="twoWayIframe"></iframe>
+                </div>
+                <div class="col-xs-4">
+                    <div class="text-center">
+                        Iframe button clicked <span id="iframeClickedCount">0</span> times.
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <button id="twoWayButton" class="btn btn-primary pull-right">Two way with iframe</button>
+                </div>
+            </div>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-right navbar-collapse" id="main-nav">
-            <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="#top">Home</a>
-                </li>
-                <li>
-                    <a href="#container">Link</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
+        <script src="dist/EnhancedPostMessage.js"></script>
+        <script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+            var iframeClickedCount = 0;
+            var updateIframeClickedCount = function(){
+                iframeClickedCount++;
+                document.getElementById('iframeClickedCount').innerHTML = iframeClickedCount.toString();
+            };
 
-<div id="top"></div>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h2 id="enhancedpostmessage">EnhancedPostMessage</h2>
+            EnhancedPostMessage({
+                sources: {
+                    oneWay: document.getElementById('oneWayIframe'),
+                    oneWayWithData: document.getElementById('oneWayWithDataIframe'),
+                    twoWay: document.getElementById('twoWayIframe')
+                },
+                listeners: {
+                    twoWay: updateIframeClickedCount
+                },
+                events: {
+                    oneWay: true,
+                    oneWayWithData: true,
+                    twoWay: true
+                },
+                debug: true
+            });
 
-            <p>An easy way to do 1 and 2 way communication across multiple frames/windows. Supports adding events
-                programatically, and triggering events at any time after being instantiated.</p>
+            // Buttons
+            var oneWayButton = document.getElementById('oneWayButton');
+            var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+            var twoWayButton = document.getElementById('twoWayButton');
 
-            <hr>
-            <h3 id="options">Options</h3>
-            <p>You can view all options in the README: <a href="https://github.com/truckingsim/EnhancedPostMessage/blob/master/README.md" target="_blank">README.md</a></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>One way communication</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-9 main">
-            <iframe src="iframes/oneWay.html" id="oneWayIframe"></iframe>
-        </div>
-        <div class="col-xs-3 side-menu">
-            <button id="oneWayButton" class="btn btn-primary">Trigger Message</button>
-        </div>
+            // click listeners
+            oneWayButton.addEventListener('click', function(){
+                EnhancedPostMessage.trigger('oneWay', 'oneWay');
+            });
 
+            oneWayWithDataInput.addEventListener('keyup', function(){
+                EnhancedPostMessage.trigger('oneWayWithData', 'oneWayWithData', oneWayWithDataInput.value);
+            });
 
-    </div>
-
-</div>
-
-<script src="dist/EnhancedPostMessage.js"></script>
-<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-    EnhancedPostMessage({
-        sources: {
-            oneWay: document.getElementById('oneWayIframe')
-        },
-        listeners: {
-            test: function (data) {
-                console.log(data);
-            }
-        },
-        events: {
-            oneWay: true
-        },
-        debug: true
-    });
-
-    // Buttons
-    var oneWayButton = document.getElementById('oneWayButton');
-
-    // click listeners
-    oneWayButton.addEventListener('click', function(){
-        EnhancedPostMessage.trigger('oneWay', 'oneWay');
-    });
-</script>
-</body>
+            twoWayButton.addEventListener('click', function(){
+                EnhancedPostMessage.trigger('twoWay', 'twoWay');
+            });
+        </script>
+    </body>
 </html>

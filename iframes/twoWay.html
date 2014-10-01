@@ -13,6 +13,11 @@
             <div class="row">
                 <div class="col-xs-12">Button clicked <span id="buttonClickedText">0</span> times.</div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button id="twoWayIframeButton" class="btn btn-info">Two way with parent</button>
+                </div>
+            </div>
         </div>
         <script src="../dist/EnhancedPostMessage.js"></script>
         <script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
@@ -25,8 +30,16 @@
             };
             EnhancedPostMessage({
                 listeners: {
-                    oneWay: updateNumOfTimeButtonClicked
+                    twoWay: updateNumOfTimeButtonClicked
+                },
+                events: {
+                    twoWay: true
                 }
+            });
+
+            var twoWayIframeButton = document.getElementById('twoWayIframeButton');
+            twoWayIframeButton.addEventListener('click', function(){
+                EnhancedPostMessage.trigger('twoWay', 'parent');
             });
         </script>
     </body>

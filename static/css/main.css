@@ -6165,11 +6165,27 @@ button.close {
 }
 body {
   padding-top: 75px;
+  padding-bottom: 100px;
 }
 body.less-padding {
   padding-top: 15px;
+  padding-bottom: 0;
+}
+body.less-padding .container {
+  margin-left: 0;
 }
 iframe {
   width: 100%;
   min-height: 250px;
+}
+blockquote {
+  padding: 10px 0 10px 20px;
+}
+hr {
+  border-top: 1px solid #c8c8c8;
+}
+@media screen and (max-width: 1000px) {
+  code {
+    width: 1200px;
+  }
 }

@@ -8,24 +8,22 @@
     <body class="less-padding">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">Click the button! I dare you</div>
+                <div class="col-xs-12">Go ahead, type whatever you want in the input to the right!</div>
             </div>
             <div class="row">
-                <div class="col-xs-12">Button clicked <span id="buttonClickedText">0</span> times.</div>
+                <div class="col-xs-12">You typed: <strong id="typedText"></strong></div>
             </div>
         </div>
         <script src="../dist/EnhancedPostMessage.js"></script>
         <script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
-            var numOfTimesButtonClicked = 0;
-            var updateNumOfTimeButtonClicked = function(){
-                numOfTimesButtonClicked++;
-                document.getElementById('buttonClickedText').innerHTML = numOfTimesButtonClicked.toString();
+            var updateTypedText = function(text){
+                document.getElementById('typedText').innerHTML = text;
             };
             EnhancedPostMessage({
                 listeners: {
-                    oneWay: updateNumOfTimeButtonClicked
+                    oneWayWithData: updateTypedText
                 }
             });
         </script>
