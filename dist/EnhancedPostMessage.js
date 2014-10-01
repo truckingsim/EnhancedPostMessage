@@ -106,14 +106,16 @@
             this._options[name] = value;
         },
         _handleEventListener: function(e){
+
             // If the data was stringified we need to parse it, this option should match on both sides.
+            var data = e.data;
             if(this._options.stringify && typeof e.data === 'string'){
-                e.data = JSON.parse(e.data);
+                data = JSON.parse(e.data);
             }
 
             // If there is a listener for this event name, call it and pass the data
-            if(this._listeners[e.data.eventName]){
-                this._listeners[e.data.eventName](e.data.data);
+            if(this._listeners[data.eventName]){
+                this._listeners[data.eventName](data.data);
             }
         }
     };
