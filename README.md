@@ -82,7 +82,7 @@ This plugin merely leverages existing functionality that is built into most brow
 
 There are no required options, and any option can be added at a later time after the plugin has been instantiated through one of the following methods:
 
-### methods
+### Methods
 -------
 ####addEvent
 ```js
