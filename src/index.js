@@ -53,7 +53,7 @@
                 // @todo: maybe extend, might just ignore if an object is passed after initialization
             }
         },
-        triggerEvent: function(sourceName, eventName, data){
+        triggerEvent: function(eventName, sourceName, data){
             var sourceWindow, e, objToSend = {};
             if(sourceName === 'parent'){
                 sourceWindow = window.parent;
