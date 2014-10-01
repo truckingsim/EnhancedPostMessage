@@ -141,7 +141,7 @@ document.getElementById('oneWayButton').addEventListener('click', function(){
                         <strong>This page</strong>
                         <pre><code class="js">EnhancedPostMessage({
     sources: {
-        oneWayWithDataSource: document.getElementbyId('oneWayIframe')
+        oneWayWithDataSource: document.getElementbyId('oneWayWthDataIframe')
     },
     events: {
         oneWayWithDataEvent: true
@@ -199,8 +199,88 @@ oneWayWithDataInput.addEventListener('keyup', function(){
                     <div class="col-xs-12">
                         <strong>This page</strong>
                         <pre><code class="js">EnhancedPostMessage({
+    sources: {
+        twoWaySource: document.getElementbyId('twoWayIframe')
+    },
+    events: {
+        twoWayEvent: true
+    },
+    listeners: {
+        twoWayIframeEvent: function(){
+            iframeClickCounter++;
+            document.getElementById('iframeClickedCount').innerHTML = iframeClickCounter.toString();
+        }
+    }
+});
+
+document.getElementById('twoWayButton').addEventListener('click', function(){
+    EnhancedPostMessage.trigger('twoWayEvent', 'twoWaySource');
+});</code></pre>
+                    </div>
+                    <div class="col-xs-12">
+                        <strong>The iframe</strong>
+                        <pre><code class="js">EnhancedPostMessage({
+    listeners: {
+        twoWayEvent: function(){
+            clickCounter++;
+            document.getElementById('clickCounter').innerHTML = clickCounter.toString();
+        }
+    },
+    events: {
+        twoWayIframeEvent: true
+    }
+});
+
+document.getElementById('twoWayIframeButton').addEventListener('click', function(){
+    // Note the parent string as the source, but no sources are defined.
+    // `parent` is a predefined source that will use `window.parent` as the source.
+    EnhancedPostMessage.trigger('twoWayIframeEvent', 'parent');
+});</code></pre>
+                    </div>
+                </div>
+            </blockquote>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Example</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <iframe src="iframes/twoWay.html" id="twoWayIframe"></iframe>
+                </div>
+                <div class="col-xs-4">
+
+
+                    <div class="text-center">
+                        <button id="twoWayButton" class="btn btn-primary">Two way with iframe</button>
+                        <br/><br/><br/><br/>
+                        Two with parent button clicked <span id="iframeClickedCount">0</span> times.
+                    </div>
+                </div>
+            </div>
+
+            <!-- TWO WAY COMMUNICATION WITH DATA -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Two way communication with data</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Code</h3>
+                </div>
+            </div>
+            <blockquote>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>This page</strong>
+                        <pre><code class="js">EnhancedPostMessage({
                             sources: {
-                            oneWayWithDataSource: document.getElementbyId('oneWayIframe')
+                            oneWayWithDataSource: document.getElementbyId('oneWayWthDataIframe')
                             },
                             events: {
                             oneWayWithDataEvent: true
@@ -232,16 +312,11 @@ oneWayWithDataInput.addEventListener('keyup', function(){
             </div>
 
             <div class="row">
-                <div class="col-xs-4">
-                    <iframe src="iframes/twoWay.html" id="twoWayIframe"></iframe>
+                <div class="col-xs-9">
+                    <iframe src="iframes/twoWayWithData.html" id="twoWayWithDataIframe"></iframe>
                 </div>
-                <div class="col-xs-4">
-                    <div class="text-center">
-                        Iframe button clicked <span id="iframeClickedCount">0</span> times.
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <button id="twoWayButton" class="btn btn-primary pull-right">Two way with iframe</button>
+                <div class="col-xs-3">
+                    <input type="text" id="twoWayWithDataInput" class="form-control">
                 </div>
             </div>
         </div>
@@ -258,20 +333,28 @@ oneWayWithDataInput.addEventListener('keyup', function(){
                 document.getElementById('iframeClickedCount').innerHTML = iframeClickedCount.toString();
             };
 
+            var updateTwoWayWithDataInputValue = function(text){
+                document.getElementById('twoWayWithDataInput').value = text;
+            };
+
             EnhancedPostMessage({
                 sources: {
                     oneWay: document.getElementById('oneWayIframe'),
                     oneWayWithData: document.getElementById('oneWayWithDataIframe'),
-                    twoWay: document.getElementById('twoWayIframe')
+                    twoWay: document.getElementById('twoWayIframe'),
+                    twoWayWithData: document.getElementById('twoWayWithDataIframe')
                 },
                 listeners: {
-                    twoWay: updateIframeClickedCount
+                    twoWay: updateIframeClickedCount,
+                    twoWayWithData: updateTwoWayWithDataInputValue
                 },
                 events: {
                     oneWay: true,
                     oneWayWithData: true,
-                    twoWay: true
+                    twoWay: true,
+                    twoWayWithData: true
                 },
+                stringify: true,
                 debug: true
             });
 
@@ -279,6 +362,7 @@ oneWayWithDataInput.addEventListener('keyup', function(){
             var oneWayButton = document.getElementById('oneWayButton');
             var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
             var twoWayButton = document.getElementById('twoWayButton');
+            var twoWayWithDataInput = document.getElementById('twoWayWithDataInput');
 
             // click listeners
             oneWayButton.addEventListener('click', function(){
@@ -291,6 +375,10 @@ oneWayWithDataInput.addEventListener('keyup', function(){
 
             twoWayButton.addEventListener('click', function(){
                 EnhancedPostMessage.trigger('twoWay', 'twoWay');
+            });
+
+            twoWayWithDataInput.addEventListener('keyup', function(){
+                EnhancedPostMessage.trigger('twoWayWithData', 'twoWayWithData', twoWayWithDataInput.value);
             });
         </script>
     </body>

@@ -6174,6 +6174,9 @@ body.less-padding {
 body.less-padding .container {
   margin-left: 0;
 }
+body.less-padding .container .row {
+  margin-bottom: 5px;
+}
 iframe {
   width: 100%;
   min-height: 250px;

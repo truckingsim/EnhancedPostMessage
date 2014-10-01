@@ -8,7 +8,7 @@
     <body class="less-padding">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">Click the button! I dare you</div>
+                <div class="col-xs-12">Click the button! I dare you.</div>
             </div>
             <div class="row">
                 <div class="col-xs-12">Button clicked <span id="buttonClickedText">0</span> times.</div>
@@ -26,7 +26,8 @@
             EnhancedPostMessage({
                 listeners: {
                     oneWay: updateNumOfTimeButtonClicked
-                }
+                },
+                stringify: true
             });
         </script>
     </body>

@@ -8,10 +8,10 @@
     <body class="less-padding">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">Click the button! I dare you</div>
+                <div class="col-xs-12">Click both buttons! I dare you.</div>
             </div>
             <div class="row">
-                <div class="col-xs-12">Button clicked <span id="buttonClickedText">0</span> times.</div>
+                <div class="col-xs-12">Two way with iframe button clicked <span id="buttonClickedText">0</span> times.</div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
@@ -34,7 +34,8 @@
                 },
                 events: {
                     twoWay: true
-                }
+                },
+                stringify: true
             });
 
             var twoWayIframeButton = document.getElementById('twoWayIframeButton');
