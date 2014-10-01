@@ -158,6 +158,18 @@
             if(arguments[0] === 'trigger' && arguments.length >= 3){
                 PrivatePluginName.triggerEvent(arguments[1], arguments[2], arguments[3]);
             }
+            
+            if(arguments[0] === 'addSource' && arguments.length >= 3){
+                PrivatePluginName._addSource(arguments[1], arguments[2]);
+            }
+
+            if(arguments[0] === 'addEvent' && arguments.length >= 3){
+                PrivatePluginName._addEvent(arguments[1], arguments[2]);
+            }
+
+            if(arguments[0] === 'addListener' && arguments.length >= 3){
+                PrivatePluginName._addListener(arguments[1], arguments[2]);
+            }
         } else if (arguments.length == 1) {
             PrivatePluginName.initialize(options);
         } else {
