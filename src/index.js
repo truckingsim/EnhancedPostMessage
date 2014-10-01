@@ -161,15 +161,17 @@
         } else {
 
         }
+        return PublicInstance;
     };
 
-    PublicInstance.prototype.trigger = function(){
+    PublicInstance.trigger = function(){
         if(arguments.length >= 2){
             PrivatePluginName.triggerEvent(arguments[0], arguments[1], arguments[2]);
         } else {
             PrivatePluginName.log('Invalid trigger, need both an event name and a source name', true);
         }
+        return PublicInstance;
     };
 
-    window.EnhancedPostMessage = new PublicInstance();
+    window.EnhancedPostMessage = PublicInstance;
 })(window);
