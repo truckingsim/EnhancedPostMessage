@@ -6176,6 +6176,7 @@ body.less-padding .container {
 }
 body.less-padding .container .row {
   margin-bottom: 5px;
+  font-size: 18px;
 }
 iframe {
   width: 100%;

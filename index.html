@@ -17,18 +17,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">EnhancedPostMessage</a>
+                    <a class="navbar-brand" href="/EnhancedPostMessage">EnhancedPostMessage</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-right navbar-collapse" id="main-nav">
                     <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a href="#top">Home</a>
-                        </li>
-                        <li>
-                            <a href="#container">Link</a>
-                        </li>
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -159,7 +154,7 @@ oneWayWithDataInput.addEventListener('keyup', function(){
     listeners: {
         oneWayWithDataEvent: function(text){
             document.getElementById('typedText').innerHTML = text;
-        };
+        }
     }
 });</code></pre>
                     </div>
@@ -173,11 +168,21 @@ oneWayWithDataInput.addEventListener('keyup', function(){
             </div>
 
             <div class="row">
+                <div class="col-xs-9"><h4>Iframe</h4></div>
+                <div class="col-xs-3"><h4>Parent</h4></div>
+            </div>
+            <div class="row">
                 <div class="col-xs-9">
                     <iframe src="iframes/oneWayWithData.html" id="oneWayWithDataIframe"></iframe>
                 </div>
                 <div class="col-xs-3">
                     <input type="text" id="oneWayWithDataInput" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr/>
                 </div>
             </div>
 
@@ -256,8 +261,14 @@ document.getElementById('twoWayIframeButton').addEventListener('click', function
                     <div class="text-center">
                         <button id="twoWayButton" class="btn btn-primary">Two way with iframe</button>
                         <br/><br/><br/><br/>
-                        Two with parent button clicked <span id="iframeClickedCount">0</span> times.
+                        <h4><code>Two with parent</code> button clicked <strong><span id="iframeClickedCount">0</span></strong> times.</h4>
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr/>
                 </div>
             </div>
 
@@ -279,28 +290,43 @@ document.getElementById('twoWayIframeButton').addEventListener('click', function
                     <div class="col-xs-12">
                         <strong>This page</strong>
                         <pre><code class="js">EnhancedPostMessage({
-                            sources: {
-                            oneWayWithDataSource: document.getElementbyId('oneWayWthDataIframe')
-                            },
-                            events: {
-                            oneWayWithDataEvent: true
-                            }
-                            });
+    sources: {
+        twoWayWithDataSource: document.getElementbyId('twoWayWthDataIframe')
+    },
+    listeners: {
+        twoWayWithDataIframeEvent: function(text){
+            document.getElementById('parentTwoWayInput').innerHTML = text;
+        }
+    }
+    events: {
+        twoWayWithDataEvent: true
+    }
+});
 
-                            var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
-                            oneWayWithDataInput.addEventListener('keyup', function(){
-                            EnhancedPostMessage.trigger('oneWayWithDataEvent', 'oneWayWithDataSource', oneWayWithDataInput.value);
-                            });</code></pre>
+var parentTwoWayInput = document.getElementById('parentTwoWayInput');
+parentTwoWayInput.addEventListener('keyup', function(){
+    EnhancedPostMessage.trigger('twoWayWithDataEvent', 'twoWayWithDataSource', parentTwoWayInput.value);
+});</code></pre>
                     </div>
                     <div class="col-xs-12">
                         <strong>The iframe</strong>
                         <pre><code class="js">EnhancedPostMessage({
-                            listeners: {
-                            oneWayWithDataEvent: function(text){
-                            document.getElementById('typedText').innerHTML = text;
-                            };
-                            }
-                            });</code></pre>
+    listeners: {
+        twoWayWithDataEvent: function(text){
+            document.getElementById('iframeTwoWayInput').value = text;
+        }
+    },
+    events: {
+        twoWayWithDataIframeEvent: true
+    }
+});
+
+var iframeTwoWayInput = document.getElementById('iframeTwoWayInput');
+iframeTwoWayInput.addEventListener('click', function(){
+    // Note the parent string as the source, but no sources are defined.
+    // `parent` is a predefined source that will use `window.parent` as the source.
+    EnhancedPostMessage.trigger('twoWayIframeEvent', 'parent', iframeTwoWayInput.value);
+});</code></pre>
                     </div>
                 </div>
             </blockquote>
@@ -312,11 +338,21 @@ document.getElementById('twoWayIframeButton').addEventListener('click', function
             </div>
 
             <div class="row">
+                <div class="col-xs-9"><h4>Iframe</h4></div>
+                <div class="col-xs-3"><h4>Parent</h4></div>
+            </div>
+            <div class="row">
                 <div class="col-xs-9">
                     <iframe src="iframes/twoWayWithData.html" id="twoWayWithDataIframe"></iframe>
                 </div>
                 <div class="col-xs-3">
                     <input type="text" id="twoWayWithDataInput" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr/>
                 </div>
             </div>
         </div>
