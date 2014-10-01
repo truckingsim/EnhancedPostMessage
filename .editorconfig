@@ -12,3 +12,7 @@ insert_final_newline = true
 [*.js]
 indent_style = space
 index_size = 4
+
+[*.less]
+indent_style = space
+index_size = 2
