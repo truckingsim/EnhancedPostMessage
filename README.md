@@ -2,6 +2,8 @@
 
 An easy way to do 1 and 2 way communication across multiple frames/windows.  Supports adding events programatically, and triggering events at any time after being instantiated.
 
+Working example can be found at [https://truckingsim.github.io/EnhancedPostMessage](https://truckingsim.github.io/EnhancedPostMessage).  These examples show simple 1 way communication, 1 way communication passing data, simple 2 way communication, and 2 way communication passing data to achieve 2 way data-binding between frames.
+
 
 ###options
 -----------------
