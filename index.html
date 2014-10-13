@@ -356,6 +356,79 @@ iframeTwoWayInput.addEventListener('click', function(){
                 </div>
             </div>
 
+            <!-- ADDING SOURCES, EVENTS, AND LISTENERS DYNAMICALLY -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Adding Sources, Events and Listeners Dynamically</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Code</h3>
+                </div>
+            </div>
+
+            <blockquote>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>This page</strong>
+                        <pre><code>EnhancedPostMessage
+    .addSource('dynamicSourceName', document.getElementById('dynamicSource'))
+    .addEvent('dynamicEventName', true);
+
+var iframe = document.createElement('iframe');
+iframe.onload = function(){
+    EnhancedPostMessage.trigger('dynamicEventName', 'dynamicSourceName');
+};
+document.getElementsByTagName('body')[0].appendChild(iframe);</code></pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>The Iframe</strong>
+                        <pre><code>var callback = function(){
+    // Do something amazing
+};
+EnhancedPostMessage.addListener('dynamicEventName', callback);</code></pre>
+                    </div>
+                </div>
+            </blockquote>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Example</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-9">
+                    <h4>Iframe</h4>
+                </div>
+                <div class="col-xs-3">
+                    <h4>Parent</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-9" id="dynamicSourceContainer">
+
+                </div>
+                <div class="col-xs-3" id="dynamicButtonsContainer">
+                    <div class="row" style="margin-bottom:5px;">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary col-xs-12" id="dynamicAddSourceButton">Add Iframe</button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:5px;">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary col-xs-12" id="dynamicClickButton" disabled>Trigger Click Listener</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- MULTIPLE SOURCES -->
 
             <div class="row">
@@ -440,6 +513,9 @@ iframeTwoWayInput.addEventListener('click', function(){
             var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
             var twoWayButton = document.getElementById('twoWayButton');
             var twoWayWithDataInput = document.getElementById('twoWayWithDataInput');
+            var dynamicAddSourceButton = document.getElementById('dynamicAddSourceButton');
+            var dynamicClickButton = document.getElementById('dynamicClickButton');
+            var dynamicIframe = null;
 
             // click listeners
             oneWayButton.addEventListener('click', function(){
@@ -456,6 +532,29 @@ iframeTwoWayInput.addEventListener('click', function(){
 
             twoWayWithDataInput.addEventListener('keyup', function(){
                 EnhancedPostMessage.trigger('twoWayWithData', 'twoWayWithData', twoWayWithDataInput.value);
+            });
+
+            dynamicAddSourceButton.addEventListener('click', function(){
+                this.disabled = true;
+                if(!dynamicIframe){
+                    dynamicIframe = document.createElement('iframe');
+                    dynamicIframe.src = 'iframes/dynamic.html';
+                    dynamicIframe.id = 'dynamicIframe';
+
+                    dynamicIframe.onload = function(){
+                        dynamicClickButton.disabled = false;
+                    };
+
+                    document.getElementById('dynamicSourceContainer').appendChild(dynamicIframe);
+                    EnhancedPostMessage.addSource('dynamicSource', dynamicIframe);
+                    EnhancedPostMessage.addEvent('dynamicEvent', true);
+                }
+            });
+
+            dynamicClickButton.addEventListener('click', function(){
+                if(dynamicIframe){
+                    EnhancedPostMessage.trigger('dynamicEvent', 'dynamicSource');
+                }
             });
         </script>
     </body>
