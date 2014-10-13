@@ -23,12 +23,8 @@
         numOfTimesButtonClicked++;
         document.getElementById('buttonClickedText').innerHTML = numOfTimesButtonClicked.toString();
     };
-    EnhancedPostMessage({
-        listeners: {
-            dynamicEvent: updateNumOfTimeButtonClicked
-        },
-        stringify: true
-    });
+
+    EnhancedPostMessage({stringify: true}).addListener('dynamicEvent', updateNumOfTimeButtonClicked);
 </script>
 </body>
 </html>
