@@ -1,6 +1,6 @@
 (function (window, undefined) {
     var initialized = false;
-    var PrivatePluginName = {
+    var PrivateEnhancedPostMessage = {
         _defaults: { stringify: false },
         _options: {},
         _events: {},
@@ -10,15 +10,12 @@
         initialize: function(options){
             var that = this;
             if(!initialized){
-                // We need some things before the plugin can be truly initialized
-                if(!options.sources){
-                    this.log('Must have at least one source available', true);
-                }
-
                 // Load in all sources
-                for(var source in options.sources){
-                    if(options.sources.hasOwnProperty(source)){
-                        this._addSource(source, options.sources[source]);
+                if(options.sources && keys(options.sources).length){
+                    for(var source in options.sources){
+                        if(options.sources.hasOwnProperty(source)){
+                            this._addSource(source, options.sources[source]);
+                        }
                     }
                 }
 
@@ -120,7 +117,7 @@
         }
     };
 
-    PrivatePluginName.log = function (message, error) {
+    PrivateEnhancedPostMessage.log = function (message, error) {
         message = message instanceof Array ? message : [message];
         if(window.console && this._options.debug){
             (error ? console.error : console.log).apply(console, message);
@@ -156,22 +153,22 @@
         if (arguments.length > 1) {
             // Handle event triggers
             if(arguments[0] === 'trigger' && arguments.length >= 3){
-                PrivatePluginName.triggerEvent(arguments[1], arguments[2], arguments[3]);
+                PrivateEnhancedPostMessage.triggerEvent(arguments[1], arguments[2], arguments[3]);
             }
             
             if(arguments[0] === 'addSource' && arguments.length >= 3){
-                PrivatePluginName._addSource(arguments[1], arguments[2]);
+                PrivateEnhancedPostMessage._addSource(arguments[1], arguments[2]);
             }
 
             if(arguments[0] === 'addEvent' && arguments.length >= 3){
-                PrivatePluginName._addEvent(arguments[1], arguments[2]);
+                PrivateEnhancedPostMessage._addEvent(arguments[1], arguments[2]);
             }
 
             if(arguments[0] === 'addListener' && arguments.length >= 3){
-                PrivatePluginName._addListener(arguments[1], arguments[2]);
+                PrivateEnhancedPostMessage._addListener(arguments[1], arguments[2]);
             }
         } else if (arguments.length == 1) {
-            PrivatePluginName.initialize(options);
+            PrivateEnhancedPostMessage.initialize(options);
         } else {
 
         }
@@ -180,12 +177,50 @@
 
     PublicInstance.trigger = function(){
         if(arguments.length >= 2){
-            PrivatePluginName.triggerEvent(arguments[0], arguments[1], arguments[2]);
+            PrivateEnhancedPostMessage.triggerEvent(arguments[0], arguments[1], arguments[2]);
         } else {
-            PrivatePluginName.log('Invalid trigger, need both an event name and a source name', true);
+            PrivateEnhancedPostMessage.log('Invalid trigger, need both an event name and a source name', true);
         }
         return PublicInstance;
     };
+
+    /**
+     * Programatically adds a source to the current instance of EnhancedPostMessage.
+     * @param {String} key - name of source
+     * @param {HTMLElement} value - a single dom element to use as a source
+     */
+    PublicInstance.addSource = function(key, value){
+        // Initialize if hasn't been already
+        PrivateEnhancedPostMessage.initialize();
+
+        PrivateEnhancedPostMessage._addSource(key, value);
+    };
+
+    /**
+     * Programatically add an event to the current instance of EnhancedPostMessage
+     * @param {String} key - name of the event
+     * @param {Object|String|True|Function|Number} value - pretty much anything but false
+     */
+    PublicInstance.addEvent = function(key, value){
+        // Initialize if hasn't been already
+        PrivateEnhancedPostMessage.initialize();
+
+        PrivateEnhancedPostMessage._addEvent(key, value);
+    };
+
+    /**
+     * 
+     * @param key
+     * @param value
+     */
+    PublicInstance.addListener = function(key, value){
+        // Initialize if hasn't been already
+        PrivateEnhancedPostMessage.initialize();
+
+        PrivateEnhancedPostMessage._addListener(key, value);
+    };
+
+
 
     window.EnhancedPostMessage = PublicInstance;
 })(window);
