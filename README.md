@@ -1,3 +1,5 @@
+####This is a pre-release plugin.  It has not been tested in a production environment yet.
+
 ##EnhancedPostMessage
 
 An easy way to do 1 and 2 way communication across multiple frames/windows.  Supports adding events programatically, and triggering events at any time after being instantiated.
@@ -42,7 +44,7 @@ This plugin merely leverages existing functionality that is built into most brow
 > __Type:__ `Object`
 > 
 > The events to listen for in a `name: value` type of way
->> _value_ - __Type:__ `Object|Function|True`
+>> _value_ - __Type:__ `Object|Function|True|String|Number`
 >>
 >> The value of an event can be an object that is passed to the listener, a function that is called with the data sent from the trigger and a object is returned, or `true` which means we just trigger the listener on the source with no data passed.
 > 
@@ -86,7 +88,7 @@ There are no required options, and any option can be added at a later time after
 -------
 ####addEvent
 ```js
-EnhancedPostMessage('addEvent', 'eventName', 'Object|Function|True');
+EnhancedPostMessage('addEvent', 'eventName', 'Object|Function|True|String|Number');
 ```
 
 ####addListener
@@ -99,6 +101,25 @@ EnhancedPostMessage('addListener', 'listenerName', FunctionToBeCalled);
 ```js
 EnhancedPostMessage('addSource', 'sourceName', document.getElementById('sourceId');
 ```
+
+### Methods Dynamically
+-----
+####addEvent
+```js
+EnhancedPostMessage.addEvent('eventName', 'Object|Function|True|String|Number')
+```
+
+####addListener
+```js
+var FunctionToBeCalled = function(data){};
+EnhancedPostMessage.addListener('listenerName', FunctionToBeCalled);
+```
+
+####addSource
+```js
+EnhancedPostMessage.addSource('sourceName', document.getElementById('sourceId');
+```
+
 -----
 ###trigger
 `trigger(event, source, data)`:
