@@ -55,7 +55,11 @@
             if(sourceName === 'parent'){
                 sourceWindow = window.parent;
             } else {
-                sourceWindow = this._sources[sourceName].contentWindow;
+                // Initially assume stored source is a window object (which is the return value of window.open)
+                sourceWindow = this._sources[sourceName];
+                // If we see contentWindow we've been passed an iframe dom element, swap out for actual window
+                if ('contentWindow' in sourceWindow)
+                    sourceWindow = sourceWindow.contentWindow;
             }
 
             e = this._events[eventName];
