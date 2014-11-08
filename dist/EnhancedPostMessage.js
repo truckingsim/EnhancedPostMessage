@@ -20,7 +20,18 @@
 
                 initialized = true;
             } else {
-                this._options = extend({}, this._options, options);
+                if(options.sources) {
+                    this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
+                }
+                if(options.events){
+                    this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
+                }
+                if(options.listeners){
+                    this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
+                }
+                if(options.stringify){
+                    this._options.stringify = options.stringify;
+                }
             }
         },
         /**
@@ -238,8 +249,6 @@
 
         return PublicInstance;
     };
-
-
 
     window.EnhancedPostMessage = PublicInstance;
 })(window);
