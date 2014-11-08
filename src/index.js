@@ -62,25 +62,22 @@
                     sourceWindow = sourceWindow.contentWindow;
             }
 
-            e = this._events[eventName];
+
             if(!sourceWindow){
-                this.log('No source by that name');
+                this.log('No source by that name', true);
                 return false;
             }
 
-            if(!e){
-                this.log('No events by that name');
-                return false;
-            }
-
-            if(e !== true){
-                if(typeof e === 'function'){
+            // Allow any event but if defined
+            e = this._events[eventName];
+            if(e && e !== true) {
+                if (typeof e === 'function') {
                     data = e(data);
-                } else if(typeof e === 'object'){
-                    data = e;
-                } else {
-                    this.log('Event value was not a valid type');
+                } else if (e === false) {
+                    this.log('Event value cannot be false', true);
                     return false;
+                } else {
+                    data = e;
                 }
             }
 
