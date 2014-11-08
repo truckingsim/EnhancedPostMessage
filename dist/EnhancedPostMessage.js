@@ -62,25 +62,22 @@
                     sourceWindow = sourceWindow.contentWindow;
             }
 
-            e = this._events[eventName];
+
             if(!sourceWindow){
-                this.log('No source by that name');
+                this.log('No source by that name', true);
                 return false;
             }
 
-            if(!e){
-                this.log('No events by that name');
-                return false;
-            }
-
-            if(e !== true){
-                if(typeof e === 'function'){
+            // Allow any event but if defined
+            e = this._events[eventName];
+            if(e && e !== true) {
+                if (typeof e === 'function') {
                     data = e(data);
-                } else if(typeof e === 'object'){
-                    data = e;
-                } else {
-                    this.log('Event value was not a valid type');
+                } else if (e === false) {
+                    this.log('Event value cannot be false', true);
                     return false;
+                } else {
+                    data = e;
                 }
             }
 
@@ -142,6 +139,7 @@
         return obj;
     };
 
+    // Sometimes Object.keys doesn't work, so put in shiv just in case.
     var keys = function(obj){
         if(Object.keys) return Object.keys(obj);
         var keys = [];
@@ -179,12 +177,17 @@
         return PublicInstance;
     };
 
+    /**
+     * Triggers event, event name can be anything, as long as the name can be used for a listener.
+     * @returns {PublicInstance}
+     */
     PublicInstance.trigger = function(){
         if(arguments.length >= 2){
             PrivateEnhancedPostMessage.triggerEvent(arguments[0], arguments[1], arguments[2]);
         } else {
             PrivateEnhancedPostMessage.log('Invalid trigger, need both an event name and a source name', true);
         }
+
         return PublicInstance;
     };
 
@@ -192,36 +195,45 @@
      * Programatically adds a source to the current instance of EnhancedPostMessage.
      * @param {String} key - name of source
      * @param {HTMLElement} value - a single dom element to use as a source
+     * @returns {PublicInstance}
      */
     PublicInstance.addSource = function(key, value){
         // Initialize if hasn't been already
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addSource(key, value);
+
+        return PublicInstance;
     };
 
     /**
      * Programatically add an event to the current instance of EnhancedPostMessage
      * @param {String} key - name of the event
      * @param {Object|String|True|Function|Number} value - pretty much anything but false
+     * @returns {PublicInstance}
      */
     PublicInstance.addEvent = function(key, value){
         // Initialize if hasn't been already
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addEvent(key, value);
+
+        return PublicInstance;
     };
 
     /**
-     * 
+     * Programatically add a listener to the current instance of EnhancedPostMessage
      * @param key
      * @param value
+     * @returns {PublicInstance}
      */
     PublicInstance.addListener = function(key, value){
         // Initialize if hasn't been already
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addListener(key, value);
+
+        return PublicInstance;
     };
 
 
