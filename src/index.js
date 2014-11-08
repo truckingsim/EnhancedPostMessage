@@ -139,6 +139,7 @@
         return obj;
     };
 
+    // Sometimes Object.keys doesn't work, so put in shiv just in case.
     var keys = function(obj){
         if(Object.keys) return Object.keys(obj);
         var keys = [];
@@ -176,12 +177,17 @@
         return PublicInstance;
     };
 
+    /**
+     * Triggers event, event name can be anything, as long as the name can be used for a listener.
+     * @returns {PublicInstance}
+     */
     PublicInstance.trigger = function(){
         if(arguments.length >= 2){
             PrivateEnhancedPostMessage.triggerEvent(arguments[0], arguments[1], arguments[2]);
         } else {
             PrivateEnhancedPostMessage.log('Invalid trigger, need both an event name and a source name', true);
         }
+
         return PublicInstance;
     };
 
@@ -189,6 +195,7 @@
      * Programatically adds a source to the current instance of EnhancedPostMessage.
      * @param {String} key - name of source
      * @param {HTMLElement} value - a single dom element to use as a source
+     * @returns {PublicInstance}
      */
     PublicInstance.addSource = function(key, value){
         // Initialize if hasn't been already
@@ -203,6 +210,7 @@
      * Programatically add an event to the current instance of EnhancedPostMessage
      * @param {String} key - name of the event
      * @param {Object|String|True|Function|Number} value - pretty much anything but false
+     * @returns {PublicInstance}
      */
     PublicInstance.addEvent = function(key, value){
         // Initialize if hasn't been already
@@ -214,9 +222,10 @@
     };
 
     /**
-     * 
+     * Programatically add a listener to the current instance of EnhancedPostMessage
      * @param key
      * @param value
+     * @returns {PublicInstance}
      */
     PublicInstance.addListener = function(key, value){
         // Initialize if hasn't been already
