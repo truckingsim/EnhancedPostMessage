@@ -9,36 +9,9 @@
 
         initialize: function(options){
             var that = this;
+            this.loadOptionsFromObject(options);
             if(!initialized){
-                // Load in all sources
-                if(options.sources && keys(options.sources).length){
-                    for(var source in options.sources){
-                        if(options.sources.hasOwnProperty(source)){
-                            this._addSource(source, options.sources[source]);
-                        }
-                    }
-                }
-
-                // Check for events and load them in
-                if(options.events && keys(options.events).length){
-                    for(var e in options.events){
-                        if(options.events.hasOwnProperty(e)){
-                            this._addEvent(e, options.events[e]);
-                        }
-                    }
-                }
-
-                // Check for any listeners and add them
-                if(options.listeners && keys(options.listeners).length){
-                    for(var l in options.listeners){
-                        if(options.listeners.hasOwnProperty(l)){
-                            this._addListener(l, options.listeners[l]);
-                        }
-                    }
-                }
-
                 this._options = extend({}, this._defaults, options);
-
 
                 // Setup sole listener that will listen for all events.
                 window.addEventListener('message', function(e){
@@ -47,11 +20,52 @@
 
                 initialized = true;
             } else {
-                // @todo: maybe extend, might just ignore if an object is passed after initialization
+                if(options.sources) {
+                    this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
+                }
+                if(options.events){
+                    this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
+                }
+                if(options.listeners){
+                    this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
+                }
+                if(options.stringify){
+                    this._options.stringify = options.stringify;
+                }
+            }
+        },
+        /**
+         * @param {Object} options
+         */
+        loadOptionsFromObject: function(options){
+            if(options.sources && keys(options.sources).length){
+                for(var source in options.sources){
+                    if(options.sources.hasOwnProperty(source)){
+                        this._addSource(source, options.sources[source]);
+                    }
+                }
+            }
+
+            // Check for events and load them in
+            if(options.events && keys(options.events).length){
+                for(var e in options.events){
+                    if(options.events.hasOwnProperty(e)){
+                        this._addEvent(e, options.events[e]);
+                    }
+                }
+            }
+
+            // Check for any listeners and add them
+            if(options.listeners && keys(options.listeners).length){
+                for(var l in options.listeners){
+                    if(options.listeners.hasOwnProperty(l)){
+                        this._addListener(l, options.listeners[l]);
+                    }
+                }
             }
         },
         triggerEvent: function(eventName, sourceName, data){
-            var sourceWindow, e, objToSend = {};
+            var sourceWindow, e;
             if(sourceName === 'parent'){
                 sourceWindow = window.parent;
             } else {
@@ -81,7 +95,7 @@
                 }
             }
 
-            objToSend = {
+            var objToSend = {
                 eventName: eventName,
                 data: data
             };
@@ -235,8 +249,6 @@
 
         return PublicInstance;
     };
-
-
 
     window.EnhancedPostMessage = PublicInstance;
 })(window);
