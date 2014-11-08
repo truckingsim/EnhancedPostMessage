@@ -71,9 +71,6 @@
                         <pre><code class="js">EnhancedPostMessage({
     sources: {
         oneWaySource: document.getElementbyId('oneWayIframe')
-    },
-    events: {
-        oneWayEvent: true
     }
 });
 document.getElementById('oneWayButton').addEventListener('click', function(){
@@ -137,9 +134,6 @@ document.getElementById('oneWayButton').addEventListener('click', function(){
                         <pre><code class="js">EnhancedPostMessage({
     sources: {
         oneWayWithDataSource: document.getElementbyId('oneWayWthDataIframe')
-    },
-    events: {
-        oneWayWithDataEvent: true
     }
 });
 
@@ -206,9 +200,6 @@ oneWayWithDataInput.addEventListener('keyup', function(){
                         <pre><code class="js">EnhancedPostMessage({
     sources: {
         twoWaySource: document.getElementbyId('twoWayIframe')
-    },
-    events: {
-        twoWayEvent: true
     },
     listeners: {
         twoWayIframeEvent: function(){
@@ -298,9 +289,6 @@ document.getElementById('twoWayIframeButton').addEventListener('click', function
             document.getElementById('parentTwoWayInput').innerHTML = text;
         }
     }
-    events: {
-        twoWayWithDataEvent: true
-    }
 });
 
 var parentTwoWayInput = document.getElementById('parentTwoWayInput');
@@ -315,9 +303,6 @@ parentTwoWayInput.addEventListener('keyup', function(){
         twoWayWithDataEvent: function(text){
             document.getElementById('iframeTwoWayInput').value = text;
         }
-    },
-    events: {
-        twoWayWithDataIframeEvent: true
     }
 });
 
@@ -374,9 +359,7 @@ iframeTwoWayInput.addEventListener('click', function(){
                 <div class="row">
                     <div class="col-xs-12">
                         <strong>This page</strong>
-                        <pre><code>EnhancedPostMessage
-    .addSource('dynamicSourceName', document.getElementById('dynamicSource'))
-    .addEvent('dynamicEventName', true);
+                        <pre><code>EnhancedPostMessage.addSource('dynamicSourceName', document.getElementById('dynamicSource'));
 
 var iframe = document.createElement('iframe');
 iframe.onload = function(){
@@ -458,12 +441,6 @@ EnhancedPostMessage.addListener('dynamicEventName', callback);</code></pre>
         twoWay: updateIframeClickedCount,
         twoWayWithData: updateTwoWayWithDataInputValue
     },
-    events: {
-        oneWay: true,
-        oneWayWithData: true,
-        twoWay: true,
-        twoWayWithData: true
-    },
     stringify: true,
     debug: true
 });</code></pre>
@@ -497,12 +474,6 @@ EnhancedPostMessage.addListener('dynamicEventName', callback);</code></pre>
                 listeners: {
                     twoWay: updateIframeClickedCount,
                     twoWayWithData: updateTwoWayWithDataInputValue
-                },
-                events: {
-                    oneWay: true,
-                    oneWayWithData: true,
-                    twoWay: true,
-                    twoWayWithData: true
                 },
                 stringify: true,
                 debug: true
@@ -547,7 +518,6 @@ EnhancedPostMessage.addListener('dynamicEventName', callback);</code></pre>
 
                     document.getElementById('dynamicSourceContainer').appendChild(dynamicIframe);
                     EnhancedPostMessage.addSource('dynamicSource', dynamicIframe);
-                    EnhancedPostMessage.addEvent('dynamicEvent', true);
                 }
             });
 
