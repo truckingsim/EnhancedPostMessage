@@ -195,6 +195,8 @@
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addSource(key, value);
+
+        return PublicInstance;
     };
 
     /**
@@ -207,6 +209,8 @@
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addEvent(key, value);
+
+        return PublicInstance;
     };
 
     /**
@@ -219,6 +223,8 @@
         PrivateEnhancedPostMessage.initialize();
 
         PrivateEnhancedPostMessage._addListener(key, value);
+
+        return PublicInstance;
     };
 
 
