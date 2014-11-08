@@ -9,13 +9,17 @@ Working example can be found at [https://truckingsim.github.io/EnhancedPostMessa
 ### Usage
 -----------------
 
-Minified and gzipped, EnhancedPostMessage is around 1KB.  To use EnhancedPostMessage you must include the plugin in every frame that will send or listen to post messages.  For example, if you have a bookmarklet and that bookmarklet creates an iframe you wish to communicate with, you will need to include EnahncedPostMessage in both the bookmarklet's code (or create a `script` tag and append it to the body) AND the iframe's source (e.g. in `href="/path/to/iframe/html"`).
+Minified and gzipped, EnhancedPostMessage is just over 1KB.  To use EnhancedPostMessage you must include the plugin in every frame that will send or listen to post messages.  For example, if you have a bookmarklet and that bookmarklet creates an iframe you wish to communicate with, you will need to include EnahncedPostMessage in both the bookmarklet's code (or create a `script` tag and append it to the body) AND the iframe's source (e.g. in `href="/path/to/iframe/html"`).
 
 The plugin works by using the data given to the trigger, plus your initialization data, to build a meta-data structure that is then sent for the `postMessage`. This enables custom event name and custom listeners.  Due to the custom data structure, the plugin is needed on both sides.  If you have multiple sources, e.g., a parent page, an iframe, and a window created with `window.open`, you will need to include EnhancedPostMessage in **each** frame.  No exceptions.
 
 Any caveats with `window.postMessage` also apply to EnhancedPostMessage.  For example, in IE10 and below, `window.postMessage` does not work if you create a new window with `window.open` that is cross origin, however creating a new iframe that is cross-origin is just fine.
 
 This plugin merely leverages existing functionality that is built into most browsers and provides a developer-friendly API. To see if your browser will work with EnhancedPostMessage, please check [here](http://caniuse.com/#search=postmessage).
+
+Any call to any function will initialize the plugin if it hasn't already been so.
+
+Any called to `EnhancedPostMessage` after initialization with an object will extend the current instance of the plugin.  Any events, sources, or listeners with the same name as existing ones will be overwritten on extend.
 
 ### Options
 -----------------
