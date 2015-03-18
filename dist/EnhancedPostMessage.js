@@ -1,3 +1,18 @@
+/*!
+ * EnhancedPostMessage
+ *
+ * A better postMessage.  Allow named events, triggers and callback listeners
+ *
+ * @version 0.5.0
+ * @author Adam Heim - https://github.com/truckingsim
+ * @link https://github.com/truckingsim/EnhancedPostMessage
+ * @copyright 2015 Adam Heim
+ * @license Released under the MIT license.
+ *
+ * Contributors:
+ *
+ * Last build: 2015-03-18 11:23:14 AM EDT
+ */
 (function (window, undefined) {
     var initialized = false;
     var PrivateEnhancedPostMessage = {
@@ -9,7 +24,9 @@
 
         initialize: function(options){
             var that = this;
-            this.loadOptionsFromObject(options);
+            if(options) {
+                this.loadOptionsFromObject(options);
+            }
             if(!initialized){
                 this._options = extend({}, this._defaults, options);
 
@@ -20,17 +37,19 @@
 
                 initialized = true;
             } else {
-                if(options.sources) {
-                    this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
-                }
-                if(options.events){
-                    this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
-                }
-                if(options.listeners){
-                    this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
-                }
-                if(options.stringify){
-                    this._options.stringify = options.stringify;
+                if(options) {
+                    if (options.sources) {
+                        this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
+                    }
+                    if (options.events) {
+                        this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
+                    }
+                    if (options.listeners) {
+                        this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
+                    }
+                    if (options.stringify) {
+                        this._options.stringify = options.stringify;
+                    }
                 }
             }
         },
