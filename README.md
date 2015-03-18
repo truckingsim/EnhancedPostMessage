@@ -153,3 +153,7 @@ EnhancedPostMessage.addSource('sourceName', document.getElementById('sourceId');
 >```js
 EnhancedPostMessage.trigger('exEvent1', 'source1', {data: {to: {be: 'passed'}}});
 ```
+
+## License
+Copyright (c) 2015 Adam Heim, contributors.  
+Released under the MIT license
