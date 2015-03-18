@@ -9,7 +9,9 @@
 
         initialize: function(options){
             var that = this;
-            this.loadOptionsFromObject(options);
+            if(options) {
+                this.loadOptionsFromObject(options);
+            }
             if(!initialized){
                 this._options = extend({}, this._defaults, options);
 
@@ -20,17 +22,19 @@
 
                 initialized = true;
             } else {
-                if(options.sources) {
-                    this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
-                }
-                if(options.events){
-                    this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
-                }
-                if(options.listeners){
-                    this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
-                }
-                if(options.stringify){
-                    this._options.stringify = options.stringify;
+                if(options) {
+                    if (options.sources) {
+                        this._options.sources = extend({}, this._options.sources || (this._options.sources = {}), options.sources);
+                    }
+                    if (options.events) {
+                        this._options.events = extend({}, this._options.events || (this._options.events = {}), options.events);
+                    }
+                    if (options.listeners) {
+                        this._options.listeners = extend({}, this._options.listeners || (this._options.listeners = {}), options.listeners);
+                    }
+                    if (options.stringify) {
+                        this._options.stringify = options.stringify;
+                    }
                 }
             }
         },
